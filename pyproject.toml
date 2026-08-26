@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "wifi-ndf"
 version = "0.2.0"
-description = "Spatial Degrees of Freedom for WiFi Mesh Sensing"
+description = "Spatial Degrees of Freedom for Wi-Fi Mesh Sensing"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.9"
@@ -27,7 +27,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/brunobastosrodrigues/wifi-ndf"
+Homepage = "https://github.com/sensing-group/wifi-ndf"
 Paper = "https://arxiv.org/abs/2602.10823"
 
 [tool.setuptools.packages.find]

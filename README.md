@@ -1,18 +1,20 @@
 # wifi-ndf
 
-**How large should a WiFi sensing mesh be, and where should its nodes sit?**
+**How large should a Wi-Fi sensing mesh be, and where should its nodes sit?**
 
-`wifi-ndf` computes the Number of spatial Degrees of Freedom (NDF) of a WiFi
+`wifi-ndf` computes the Number of spatial Degrees of Freedom (NDF) of a Wi-Fi
 mesh: the count of independent measurements its pairwise links provide about a
 room, from node coordinates, room dimensions, and wavelength alone. No CSI is
-needed. It is the reference implementation for the paper *Optimal Mesh Size for
-WiFi Sensing Under a Sounding Budget* (under review).
+needed. It is the reference implementation for the paper *Optimal Sizing and
+Placement of WiFi Sensing Meshes Under a Sounding Budget* (under review).
 
 ## Install
 
 ```bash
-pip install wifi-ndf
+pip install git+https://github.com/sensing-group/wifi-ndf.git
 ```
+
+Requires Python >= 3.9, NumPy >= 1.21, SciPy >= 1.7.
 
 ## Quick start
 
@@ -45,10 +47,12 @@ was confirmed on three mapped hardware deployments across all 904 node subsets.
   any tested count. Ceiling law: `NDF_inf ~ 1.19*ka + 14.21*sqrt(ka)`
   (fitted on three electrical sizes, predicting two held-out ones at -5.3%
   and -2.6%).
-- NDF prices no measurement by acquisition cost. The optimal *node count* is a
-  property of the sounding budget `B = SNR * rate * coherence time`, not of the
-  room: it moves from 8 to 46 nodes across one geometry as `B` sweeps six
-  decades. See the paper and `analysis/ndf_rate_optimum.py`.
+- NDF prices no measurement by acquisition cost. Pricing each mode by the
+  delivered SNR under a sounding budget `B = SNR * rate * coherence time`
+  exposes **no stable interior optimum in node count**. What binds instead are
+  the activity's Nyquist cap and the geometric ceiling above, and the dominant
+  design lever is where measurement reports travel. See the paper and
+  `analysis/ndf_rate_optimum.py`.
 
 ## v0.2.0: corrected grid criterion
 
@@ -82,15 +86,18 @@ scheduling with data-dependent certificates, the first-order multipath
 robustness check, grid-convergence and threshold ablations, and the mapped
 hardware deployments. `docs/theory/` contains the per-node rank theorem with
 its 240-configuration numerical verification
-(`analysis/results/gaussian_count_lemma_verification.json`). Some scripts
-import geometry helpers from the authors' testbed repository and are archived
-here for inspection alongside their committed outputs.
+(`analysis/results/gaussian_count_lemma_verification.json`). Seven of these
+scripts import geometry helpers from
+[OpenCSI](https://github.com/sensing-group/OpenCSI)
+(`opencsi.geometry.ndf`), the group's CSI testbed library; install it alongside
+this package to re-run them. They are archived here for inspection together
+with their committed outputs.
 
 ## Citation
 
 ```bibtex
 @misc{khamaisi2026ndf,
-  title={Optimal Mesh Size for WiFi Sensing Under a Sounding Budget},
+  title={Optimal Sizing and Placement of WiFi Sensing Meshes Under a Sounding Budget},
   author={Khamaisi, Karim and Rodrigues, Bruno},
   year={2026},
   note={Under review}
